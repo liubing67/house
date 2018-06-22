@@ -75,6 +75,7 @@ public class MailService {
      */
     @Async
     public void registerNotify(String email) {
+        //随机生成一个10位的字符串
         String randomKey = RandomStringUtils.randomAlphabetic(10);
         registerCache.put(randomKey, email);
         String url = "http://" + domainName + "/accounts/verify?key=" + randomKey;

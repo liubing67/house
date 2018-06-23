@@ -43,18 +43,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j2 -->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-log4j2</artifactId>-->
-            <!--<version>1.5.3.RELEASE</version>-->
-        <!--</dependency>-->
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/com.lmax/disruptor &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>com.lmax</groupId>-->
-            <!--<artifactId>disruptor</artifactId>-->
-            <!--<version>3.3.4</version>-->
-        <!--</dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.lmax/disruptor -->
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>3.3.4</version>
+        </dependency>
 
         <dependency>
             <groupId>com.abing.house</groupId>

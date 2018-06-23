@@ -42,4 +42,7 @@ public class UserService {
         mailService.registerNotify(user.getEmail());
         return true;
     }
+    public boolean enable(String key){
+        return mailService.enable(key);
+    }
 }

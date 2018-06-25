@@ -6,6 +6,7 @@ import com.abing.house.common.utils.BeanHelper;
 import com.abing.house.common.utils.HashUtils;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,10 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Value("${file.prefix}")
+    private String imgPrefix;
+
     /**
      * 1.插入数据库，非激活;密码加盐md5;保存头像文件到本地 2.生成key，绑定email 3.发送邮件给用户
      *
@@ -45,4 +50,41 @@ public class UserService {
     public boolean enable(String key){
         return mailService.enable(key);
     }
+
+    /**
+     * 用户名密码验证
+     * @param userName
+     * @param passWord
+     * @return
+     */
+    public User auth(String userName,String passWord){
+        User user=new User();
+        user.setEmail(userName);
+        user.setPasswd(HashUtils.encryPassword(passWord));
+        user.setEnable(1);
+        List<User> list=getUserByQuery(user);
+        if (!list.isEmpty()){
+            return list.get(0);
+        }
+        return null;
+
+    }
+    public List<User> getUserByQuery(User user){
+        List<User> list=userMapper.selectUsersByQuery(user);
+        list.forEach(u -> {
+            u.setAvatar(imgPrefix+u.getAvatar());
+        });
+        return list;
+    }
+    public void updateUser(User updateUser,String email){
+        updateUser.setEmail(email);
+        BeanHelper.onUpdate(updateUser);
+        userMapper.update(updateUser);
+    }
+
+
+
+
+
+
 }

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class UserController {
     @Autowired
@@ -51,6 +53,23 @@ public class UserController {
             return "redirect:/accounts/register?"+ResultMsg.errrorMsg("激活失败，请确认连接是否过期！");
         }
 
+    }
+
+    public String signIn(HttpServletRequest request){
+
+        String userName=request.getParameter("userName");
+        String passWord=request.getParameter("password");
+        String target=request.getParameter("target");
+        if (userName==null||passWord==null){
+            request.setAttribute("target",target);
+            return "/user/accounts/signin";
+        }
+        User user=userService.auth(userName,passWord);
+        if (user==null){
+            return "redirect:/account/signin?"+"target="+target+"&username="+
+                    userName+"&"+ResultMsg.errrorMsg("用户名或密码错误").asUrlParams();
+        }
+        return "";
     }
 
 

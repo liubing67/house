@@ -82,9 +82,49 @@ public class UserService {
         userMapper.update(updateUser);
     }
 
+    /**
+     * 忘记密码，发送邮件
+     * @param email
+     */
+    public void resetNotify(String email){
+        mailService.resetNotify(email);
+    }
 
 
+    public String getResetEmail(String key){
+        String email="";
+        try {
+            email=mailService.getResetEmail(key);
+        }catch (Exception e){
 
+        }
+        return email;
+    }
 
+    /**
+     * 重置密码操作
+     * @param key
+     * @param password
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public User reset(String key,String password){
+        String email=getResetEmail(key);
+        User updateUser=new User();
+        updateUser.setEmail(email);
+        updateUser.setPasswd(HashUtils.encryPassword(password));
+        userMapper.update(updateUser);
+        mailService.invalidateRestKey(key);
+        return getUserByEmail(email);
+    }
+    public User getUserByEmail(String email){
+        User queryUser=new User();
+        queryUser.setEmail(email);
+        List<User> users=getUserByQuery(queryUser);
+        if (!users.isEmpty()){
+            return users.get(0);
+        }
+        return null;
+    }
 
 }

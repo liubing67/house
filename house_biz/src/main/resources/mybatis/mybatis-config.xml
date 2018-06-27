@@ -16,8 +16,8 @@
     
     <typeAliases>
        <typeAlias type="com.abing.house.common.model.User" alias="user" />
-        <typeAlias type="com.abing.house.common.model.Agency"      alias="agency"/>
-       <!--<typeAlias type="com.abing.house.common.model.House" alias="house" />-->
+        <typeAlias type="com.abing.house.common.model.Agency" alias="agency"/>
+       <typeAlias type="com.abing.house.common.model.House" alias="house" />
        <!--<typeAlias type="com.abing.house.common.model.City" alias="city" />-->
        <!--<typeAlias type="com.abing.house.common.model.Comment"     alias="comment"/>-->
        <!--<typeAlias type="com.abing.house.common.model.Community" alias="community" />-->
@@ -32,7 +32,7 @@
     <mappers>
        <mapper resource="mapper/user.xml" />
        <!--<mapper resource="mapper/blog.xml"/> -->
-       <!--<mapper resource="mapper/house.xml" />-->
+       <mapper resource="mapper/house.xml" />
        <!--<mapper resource="mapper/comment.xml"/> -->
        <mapper resource="mapper/agency.xml" />
     </mappers>

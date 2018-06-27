@@ -69,7 +69,7 @@
 
     function openRemember(){
         var email = document.getElementById('form-create-account-email');
-        window.open('/accounts/remember?username='+email.value);
+        window.open('/accounts/remember?email='+email.value);
     }
         
  </script>

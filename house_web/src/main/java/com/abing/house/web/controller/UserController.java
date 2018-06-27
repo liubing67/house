@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -67,7 +68,7 @@ public class UserController {
     @RequestMapping("/accounts/signin")
     public String signIn(HttpServletRequest request){
 
-        String userName=request.getParameter("userName");
+        String userName=request.getParameter("username");
         String passWord=request.getParameter("password");
         String target=request.getParameter("target");
         if (userName==null||passWord==null){
@@ -171,4 +172,16 @@ public class UserController {
         return "redirect:/index?"+resultMsg.asUrlParams();
     }
 
+    @RequestMapping("accounts/profile")
+    public String profile(HttpServletRequest request,User updateUser,ModelMap modelMap){
+        if (updateUser.getEmail()==null){
+            return "/user/accounts/profile";
+        }
+        userService.updateUser(updateUser,updateUser.getEmail());
+        User query=new User();
+        query.setEmail(updateUser.getEmail());
+        List<User> userList=userService.getUserByQuery(query);
+        request.getSession(true).setAttribute(CommonConstants.USER_ATTRIBUTE,userList.get(0));
+        return "redirect:/accounts/profile?"+ResultMsg.successMsg("更新成功").asUrlParams();
+    }
 }

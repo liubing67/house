@@ -38,8 +38,9 @@ public class HouseController {
      */
     @RequestMapping("/house/list")
     public String houseList(Integer pageSize, Integer pageNum, House house, ModelMap modelMap){
-        PageData<House> housePageData=houseService.queryHouse(house,PageParams.build(pageSize,pageNum));
-//        List<House> hotHouses=
-        return "";
+        PageData<House> ps=houseService.queryHouse(house,PageParams.build(pageSize,pageNum));
+        modelMap.put("ps",ps);
+        modelMap.put("vo",house);
+        return "house/listing";
     }
 }

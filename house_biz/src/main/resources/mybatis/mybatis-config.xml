@@ -20,7 +20,7 @@
        <typeAlias type="com.abing.house.common.model.House" alias="house" />
        <!--<typeAlias type="com.abing.house.common.model.City" alias="city" />-->
        <!--<typeAlias type="com.abing.house.common.model.Comment"     alias="comment"/>-->
-       <!--<typeAlias type="com.abing.house.common.model.Community" alias="community" />-->
+       <typeAlias type="com.abing.house.common.model.Community" alias="community" />
        <!--<typeAlias type="com.abing.house.common.model.HouseUser" alias="houseUser" />-->
        <!--<typeAlias type="com.abing.house.common.model.Blog"        alias="blog"/>-->
        <!--<typeAlias type="com.abing.house.common.model.User"        alias="user"/>-->

@@ -24,12 +24,12 @@ public class AgencyService {
   /**
    * 访问user表获取详情 添加用户头像
    * 
-   * @param userId
+   * @param agentId
    * @return
    */
-  public User getAgentDeail(Long userId) {
+  public User getAgentDeail(Long agentId) {
     User user = new User();
-    user.setId(userId);
+    user.setId(agentId);
     user.setType(2);
     List<User> list = agencyMapper.selectAgent(user, PageParams.build(1, 1));
     setImg(list);

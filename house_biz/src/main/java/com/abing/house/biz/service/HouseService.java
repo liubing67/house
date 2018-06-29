@@ -1,10 +1,10 @@
 package com.abing.house.biz.service;
 
 import com.abing.house.biz.mapper.HouseMapper;
-import com.abing.house.common.model.Community;
-import com.abing.house.common.model.House;
+import com.abing.house.common.model.*;
 import com.abing.house.common.page.PageData;
 import com.abing.house.common.page.PageParams;
+import com.abing.house.common.utils.BeanHelper;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,11 @@ public class HouseService {
     @Autowired
     private HouseMapper houseMapper;
 
+    @Autowired
+    private AgencyService agencyService;
+
+    @Autowired
+    private MailService mailService;
     @Value("${file.prefix}")
     private String imgPrefix;
 
@@ -57,5 +62,31 @@ public class HouseService {
             house1.setFloorPlanList(house1.getFloorPlanList().stream().map(img->imgPrefix+img).collect(Collectors.toList()));
         });
         return houses;
+    }
+
+    public House queryOneHouse(Long id) {
+        House query=new House();
+        query.setId(id);
+        List<House> houses=queryAndSetImg(query,PageParams.build(1,1));
+        if (!houses.isEmpty()){
+            return houses.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * 添加留言
+     * @param userMsg
+     */
+    public void addUserMsg(UserMsg userMsg) {
+        BeanHelper.onInsert(userMsg);
+        houseMapper.insertUserMsg(userMsg);
+        User user=agencyService.getAgentDeail(userMsg.getAgentId());
+        mailService.sendMail("来自用户"+userMsg.getEmail()+"的留言",userMsg.getMsg(),user.getEmail());
+    }
+
+    public HouseUser getHouseUser(Long houseId) {
+        HouseUser houseUser=houseMapper.selectSaleHouseUser(houseId);
+        return houseUser;
     }
 }

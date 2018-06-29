@@ -70,7 +70,7 @@
        </if>
        <if test="user.name !=null and user.name != ''">
           and email = #{user.email}
-       </if>     
+       </if>
      </where>
      order by id desc
      <if test='pageParams.offset != null and pageParams.limit != null'>
@@ -80,7 +80,6 @@
             limit #{pageParams.limit}
        </if>
     </select>
-    
     <select id="selectAgentCount" resultType="long">
      select count(id)
      from user

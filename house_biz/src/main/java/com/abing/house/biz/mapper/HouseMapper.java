@@ -2,6 +2,8 @@ package com.abing.house.biz.mapper;
 
 import com.abing.house.common.model.Community;
 import com.abing.house.common.model.House;
+import com.abing.house.common.model.HouseUser;
+import com.abing.house.common.model.UserMsg;
 import com.abing.house.common.page.PageParams;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,4 +20,8 @@ public interface HouseMapper {
     public int insert(House house);
 
     List<Community> selectCommunity(Community community);
+
+    void insertUserMsg(UserMsg userMsg);
+
+    HouseUser selectSaleHouseUser(Long houseId);
 }

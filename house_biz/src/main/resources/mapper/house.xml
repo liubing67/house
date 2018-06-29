@@ -219,6 +219,7 @@
       where  house_id = #{id} and user_id = #{userId} and type=#{type}
     
     </delete>
-   
+
+
 
 </mapper>
